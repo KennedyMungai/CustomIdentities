@@ -6,15 +6,22 @@
 @inject RoleManager<IdentityRole> _RoleManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<h3>Administration</h3>
+<h3 class="text-center text-primary display-6 my-3">Administration</h3>
+<hr>
+
 <AuthorizeView>
     <Authorized>
         @if (@context.User.IsInRole(ADMINISTRATION_ROLE))
         {
-            <table class="table">
+            <table class="table table-responsive table-inverse table-sm table-bordered">
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Payroll Number</th>
+                        <th>Region</th>
+                        <th>Branch</th>
                         <th>User Name</th>
                         <th>Email</th>
                     </tr>
@@ -24,6 +31,11 @@
                     {
                         <tr>
                             <td>@user.Id.Substring(0, 5) ...</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.PayrollNumber</td>
+                            <td>@user.Region</td>
+                            <td>@user.Branch</td>
                             <td>@user.UserName</td>
                             <td>@user.Email</td>
                             <td>
@@ -69,13 +81,28 @@
                                             placeholder="UserName"
                                             @bind="objUser.UserName" />
                                 }
-                                <input class="form-control" type="text"
+                                <input class="form-control my-1" type="text"
+                                        placeholder="First Name"
+                                        @bind="objUser.FirstName" />
+                                <input class="form-control my-1" type="text"
+                                        placeholder="Last Name"
+                                        @bind="objUser.LastName" />
+                                <input class="form-control my-1" type="text"
+                                        placeholder="Payroll Number"
+                                        @bind="objUser.PayrollNumber" />
+                                <input class="form-control my-1" type="text"
+                                        placeholder="Region"
+                                        @bind="objUser.Region" />
+                                <input class="form-control my-1" type="text"
+                                        placeholder="Branch"
+                                        @bind="objUser.Branch" />
+                                <input class="form-control my-1" type="text"
                                         placeholder="Email"
                                         @bind="objUser.Email" />
-                                <input class="form-control" type="password"
+                                <input class="form-control my-1" type="password"
                                         placeholder="Password"
                                         @bind="objUser.PasswordHash" />
-                                <select class="form-control"
+                                <select class="form-control my-1"
                                         @bind="@CurrentUserRole">
                                     @foreach (var option in Options)
                                     {
@@ -184,6 +211,11 @@
         var user = _UserManager.Users.Select(x => new EmployeeCharacteristics
         {
             Id = x.Id,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            PayrollNumber = x.PayrollNumber,
+            Region = x.Region,
+            Branch = x.Branch,
             UserName = x.UserName,
             Email = x.Email,
             PasswordHash = "*****"
@@ -220,6 +252,12 @@
 
                 // Update Email
                 user.Email = objUser.Email;
+
+                user.FirstName = objUser.FirstName;
+                user.LastName = objUser.LastName;
+                user.PayrollNumber = objUser.PayrollNumber;
+                user.Region = objUser.Region;
+                user.Branch = objUser.Branch;
 
                 // Update the user
                 await _UserManager.UpdateAsync(user);

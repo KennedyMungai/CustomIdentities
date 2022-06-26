@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+﻿using System.Xml.Schema;
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -71,31 +72,6 @@ namespace CustomIdentities.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(100)]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [StringLength(100)]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
-
-            [Required]
-            [StringLength(8)]
-            [Display(Name = "Payroll Number")]
-            public string PayrollNumber { get; set; }
-
-            [Required]
-            [StringLength(100)]
-            [Display(Name = "Region")]
-            public string Region { get; set; }
-
-            [Required]
-            [StringLength(100)]
-            [Display(Name = "Branch")]
-            public string Branch { get; set; }
-
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
